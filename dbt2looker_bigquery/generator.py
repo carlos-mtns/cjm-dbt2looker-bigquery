@@ -4,7 +4,7 @@ import lkml
 
 from . import models
 
-from .cli import get_hidden
+from cli import get_hidden
 
 log = logging.getLogger("rich")
 
