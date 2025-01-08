@@ -4,8 +4,6 @@ import lkml
 
 from . import models
 
-from cli import get_hidden
-
 log = logging.getLogger("rich")
 
 
@@ -331,8 +329,6 @@ def lookml_dimensions_from_model(
                     else f'{model.name.replace(".","__")}__{column.name}'
                 ),
                 "description": column.description,
-                #INSERT HIDDEN = ... HERE
-                "hidden": get_hidden()
             }
 
             if "ARRAY" in column.data_type:
@@ -369,6 +365,10 @@ def lookml_dimensions_from_model(
                         column.meta.looker.value_format_name.value
                     )
 
+            #based on argument parser --hidden_dimensions
+            if models.HiddenDimension.is_hidden:
+                dimension["hidden"] = "yes"
+                
             is_hidden = False
             dimensions.append(dimension)
 

@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: cjm-dbt2looker-bigquery
-Version: 0.14.0
+Version: 0.14.1
 Summary: Generate lookml view files from dbt models for Bigquery
 Description-Content-Type: text/markdown
 License-File: LICENSE

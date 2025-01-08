@@ -11,7 +11,7 @@ try:
 except ImportError:
     from importlib_metadata import version
 
-from . import generator, parser
+from . import generator, parser, models
 
 MANIFEST_PATH = "./manifest.json"
 DEFAULT_LOOKML_OUTPUT_DIR = "."
@@ -124,10 +124,9 @@ def run():
 
     adapter_type = parser.parse_adapter_type(raw_manifest)
 
-    def get_hidden():
-        return args.hidden_dimensions
+    if args.hidden_dimensions: 
+        models.HiddenDimension.is_hidden = args.hidden_dimensions
     
-
     # Generate lookml views
     lookml_views = [
         generator.lookml_view_from_dbt_model(model, adapter_type)
