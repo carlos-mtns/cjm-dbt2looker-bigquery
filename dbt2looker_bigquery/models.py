@@ -250,3 +250,7 @@ class DbtManifest(BaseModel):
 
 class HiddenDimension():
     is_hidden = False    
+
+class SkipExplore():
+    skip_explore = False        
+

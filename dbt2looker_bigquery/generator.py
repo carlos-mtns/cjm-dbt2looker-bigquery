@@ -189,6 +189,10 @@ def lookml_dimension_group(
             ],
         }
 
+        #based on argument parser --hidden_dimensions
+        if models.HiddenDimension.is_hidden:
+            dimension_group["hidden"] = "yes"  
+
         if type == "date":
             iso_year = {
                 "name": f"{column.name}_iso_year",
@@ -224,6 +228,13 @@ def lookml_dimension_group(
             dimension_group_set["fields"].extend(
                 [f"{column.name}_iso_year", f"{column.name}_iso_week_of_year"]
             )
+
+            #based on argument parser --hidden_dimensions
+            if models.HiddenDimension.is_hidden:
+                iso_year["hidden"] = "yes"   
+                iso_week_of_year["hidden"] = "yes"   
+
+        
 
         if not dimensions and type == "date":
             logging.warning(
@@ -725,7 +736,8 @@ def lookml_view_from_dbt_model(
             )
         return join_list
 
-    if len(array_models) > 0:
+    #also based on argument parser --skip_repeated_explore
+    if len(array_models) > 0 and not models.SkipExplore.skip_explore:
         logging.info(f"{model.name} explore view definition")
 
         hidden = "yes"

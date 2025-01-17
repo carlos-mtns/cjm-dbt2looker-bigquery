@@ -101,6 +101,12 @@ def run():
         help="add this flag to force generated dimensions to be hidden",
         action='store_true'  # on/off flag
     )
+    argparser.add_argument(
+        "--skip-repeated-explore",
+        "--skip_repeated_explore",
+        help="add this flag to skip the explore view definition within the lkml view files",
+        action='store_true'  # on/off flag
+    )
     args = argparser.parse_args()
     FORMAT = "%(message)s"
     logging.basicConfig(
@@ -126,6 +132,9 @@ def run():
 
     if args.hidden_dimensions: 
         models.HiddenDimension.is_hidden = args.hidden_dimensions
+
+    if args.skip_repeated_explore: 
+        models.SkipExplore.skip_explore = args.skip_repeated_explore    
     
     # Generate lookml views
     lookml_views = [
