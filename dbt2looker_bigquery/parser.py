@@ -114,10 +114,10 @@ def get_exposed_models(exposures: List[models.DbtExposure]) -> list:
     unique_exposed_models = list(set(exposed_models))
     return unique_exposed_models
 
-def parse_typed_models(raw_manifest: dict, raw_catalog: dict, tag: Optional[str] = None, exposures_only: bool = False, select_model: Optional[str] = None, hidden_dimensions: bool = False):
+def parse_typed_models(raw_manifest: dict, raw_catalog: dict, tag: Optional[str] = None, exposures_only: bool = False, select_model: Optional[str] = None):
     catalog_nodes = parse_catalog_nodes(raw_catalog)
     
-    dbt_models = parse_models(raw_manifest, tag=tag, exposures_only=exposures_only, select_model=select_model, hidden_dimensions=hidden_dimensions)
+    dbt_models = parse_models(raw_manifest, tag=tag, exposures_only=exposures_only, select_model=select_model)
     adapter_type = parse_adapter_type(raw_manifest)
     
     check_model_materialization(dbt_models, raw_catalog, adapter_type)
